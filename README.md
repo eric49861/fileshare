@@ -16,3 +16,6 @@
 - 限制单次文件上传的大小(50M)
 - 限制用户的空间
 
+## 项目使用的技术栈
+使用了Spring、SpringMVC、Spring Data JDBC(没有使用Mybatis, 感觉JDBC足够了)、Redis(用于缓存用户的邮箱验证码)、MySQL
+
