@@ -26,7 +26,7 @@ public class EmailController {
     }
 
     @PostMapping("/code")
-    public Result<String> EmailCode(@RequestParam @Email String email) {
+    public Result<String> EmailCode(@RequestParam("email") String email) {
         try {
             emailService.sendCode(email);
         }catch (EmailException | ExecutionException e) {

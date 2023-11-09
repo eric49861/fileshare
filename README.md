@@ -29,4 +29,4 @@
 
 2. SpringMVC6文件上传的问题
     
-3. SpringMVC文件参数接收的问题
+3. SpringMVC文件参数接收的问题(使用axios的post请求直接传参会有问题)

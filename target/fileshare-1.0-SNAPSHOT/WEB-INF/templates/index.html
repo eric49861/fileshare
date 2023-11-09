@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FileShare</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Import style -->
+    <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
+    <!-- Import component library -->
+    <script src="//unpkg.com/element-plus"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        #app {
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            vertical-align: center;
+        }
+        .box-card {
+            width: 600px;
+            margin-top: 10%;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <el-card class="box-card" style="width: 600px;">
+            <el-form :model="uploadForm" label-width="120px">
+                <!--文件选择-->
+                <el-form-item label="文件">
+                    <el-upload
+                            class="upload-demo"
+                            :limit="1"
+                            :on-change="saveFile"
+                            :auto-upload="false">
+                        <template #trigger>
+                            <el-button type="primary">选择文件</el-button>
+                        </template>
+                    </el-upload>
+                </el-form-item>
+                <!--文件有效时长选择-->
+                <el-form-item label="有效时长(H)">
+                    <el-select v-model="uploadForm.expireAt" class="m-2" placeholder="Select" size="large">
+                        <el-option
+                                v-for="(item, index) in options"
+                                :key="index"
+                                :value="item"></el-option>
+                    </el-select>
+                </el-form-item>
+                <!--目标邮箱-->
+                <el-form-item label="邮箱地址">
+                    <el-input v-model="uploadForm.targetEmail" placeholder="请输入邮箱" style="width: 400px"></el-input>
+                </el-form-item>
+                <!--邮箱验证码-->
+                <el-form-item label="验证码">
+                    <el-input v-model="uploadForm.code" placeholder="验证码" style="width: 100px;margin-right: 5px" maxlength="6"></el-input>
+                    <el-button type="primary" @click="getCode">获取验证码</el-button>
+                </el-form-item>
+                <!--提交表单-->
+                <el-form-item>
+                    <el-button type="primary" @click="uploadFile()">确定</el-button>
+                    <el-button type="primary" @click="onReset()">重置</el-button>
+                </el-form-item>
+            </el-form>
+        </el-card>
+    </div>
+</body>
+<script>
+    const {Elmessage} = ElementPlus
+    const { createApp } = Vue
+    const app = createApp({
+        data() {
+            return {
+                uploadForm:{
+                    file:"",
+                    expireAt: 3,
+                    targetEmail: "",
+                    code: ""
+                },
+                options:[3, 6, 12, 24, 48]
+            }
+        },
+        methods:{
+            saveFile: function(file) {
+                this.uploadForm.file = file
+            },
+            onReset: function() {
+                this.uploadForm.file = ""
+                this.uploadForm.expireAt = 3
+                this.uploadForm.targetEmail = ""
+                this.uploadForm.code = ""
+            },
+            getCode: function() {
+                console.log("getCode")
+                let email = this.uploadForm.targetEmail
+                let formData = new FormData()
+                formData.append("email", email)
+                axios.post('/fileshare/code', formData)
+                    .then((res) => {
+                        ElMessage(res.data)
+                }).catch((err) => {
+                    ElMessage(err.message)
+                })
+            },
+            uploadFile: function () {
+                let formData = new FormData()
+                formData.append("file", this.uploadForm.file.raw)
+                formData.append("targetEmail", this.uploadForm.targetEmail)
+                formData.append("expireAt", this.uploadForm.expireAt)
+                formData.append("code", this.uploadForm.code)
+                axios.post("/fileshare/upload", formData)
+                    .then((res) => {
+                        ElMessage(res.data)
+                }).catch((err) => {
+                    ElMessage(err.message)
+                })
+            }
+        }
+    })
+    app.use(ElementPlus);
+    app.mount("#app")
+</script>
+</html>

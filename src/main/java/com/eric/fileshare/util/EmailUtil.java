@@ -16,7 +16,7 @@ public class EmailUtil {
     private static final String NUMS_OPTIONS = "0123456789";
 
     // 邮箱验证码的过期时间
-    public static final int TIME = 30;
+    public static final int TIME = 5;
 
     // 邮箱服务器的用户名和授权码
     private static final String GRANT_CODE = System.getenv("GRANT_CODE");
@@ -31,8 +31,8 @@ public class EmailUtil {
         email.setAuthenticator(new DefaultAuthenticator(USERNAME, GRANT_CODE));
         email.setSSLOnConnect(true);
         email.setFrom(USERNAME);
-        email.setSubject("注册验证码");
-        email.setMsg("您的注册验证码: <h3>" + code + "</h3>有效时间为 " + TIME + " 分钟");
+        email.setSubject("验证码");
+        email.setMsg("您的文件上传验证码: <h3>" + code + "</h3>有效时间为 " + TIME + " 分钟，请勿传播给他人");
         email.addTo(to);
         email.send();
     }
