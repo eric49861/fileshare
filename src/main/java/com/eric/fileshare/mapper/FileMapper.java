@@ -10,11 +10,13 @@ import java.sql.Timestamp;
 public class FileMapper implements RowMapper<File> {
     @Override
     public File mapRow(ResultSet rs, int rowNum) throws SQLException {
+        if(rowNum == 0) {
+            return null;
+        }
         File f = new File();
         f.setId(rs.getObject("id", Integer.class));
         f.setFilename(rs.getObject("filename", String.class));
         f.setExtension(rs.getObject("extension", String.class));
-        f.setUploaderID(rs.getObject("uploader_id", Integer.class));
         f.setUploaderIP(rs.getObject("uploader_ip", String.class));
         f.setContent(rs.getObject("content", byte[].class));
         f.setExpireAt(rs.getObject("expire_at", Timestamp.class));

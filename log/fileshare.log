@@ -1,0 +1,6 @@
+[INFO][23-11-09][com.alibaba.druid.pool.DruidDataSource]{dataSource-1} inited
+[INFO][23-11-09][com.alibaba.druid.pool.DruidDataSource]{dataSource-1} closing ...
+[INFO][23-11-09][com.alibaba.druid.pool.DruidDataSource]{dataSource-1} closed
+[INFO][23-11-09][com.alibaba.druid.pool.DruidDataSource]{dataSource-1} inited
+[INFO][23-11-09][com.alibaba.druid.pool.DruidDataSource]{dataSource-1} closing ...
+[INFO][23-11-09][com.alibaba.druid.pool.DruidDataSource]{dataSource-1} closed

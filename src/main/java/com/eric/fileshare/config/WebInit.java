@@ -6,6 +6,10 @@ import jakarta.servlet.ServletRegistration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebInit extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+    private final Long MAX_SIZE = 50 * 1024 * 1024 * 1024L;
+    private final int FILE_THRESH_SIZE = (int) (MAX_SIZE / 2);
+
     // 获取根配置文件，即spring的配置，可以用于整合
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -26,6 +30,6 @@ public class WebInit extends AbstractAnnotationConfigDispatcherServletInitialize
 
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-        registration.setMultipartConfig(new MultipartConfigElement("", 65535, 65535, 65535));
+        registration.setMultipartConfig(new MultipartConfigElement("", MAX_SIZE, MAX_SIZE, FILE_THRESH_SIZE));
     }
 }
