@@ -101,7 +101,7 @@ public class FileController {
         f.setUploaderIP(ip);
         f.setExtension(extension);
         f.setUploadAt(new Timestamp(System.currentTimeMillis()));
-        f.setExpireAt(new Timestamp(expireAt));
+        f.setExpireAt(new Timestamp(System.currentTimeMillis() + expireAt * 60 * 60 * 1000));
         f.setContent(multipartFile.getBytes());
         f.setHash(EncryptionUtil.md5(multipartFile.getBytes()));
         f.setFilesize(multipartFile.getSize());
