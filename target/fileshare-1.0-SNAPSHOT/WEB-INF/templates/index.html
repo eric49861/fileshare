@@ -101,9 +101,9 @@
                 formData.append("email", email)
                 axios.post('/fileshare/code', formData)
                     .then((res) => {
-                        ElMessage(res.data)
+                        console.log(res)
                 }).catch((err) => {
-                    ElMessage(err.message)
+                    console.log(err)
                 })
             },
             uploadFile: function () {
@@ -114,9 +114,9 @@
                 formData.append("code", this.uploadForm.code)
                 axios.post("/fileshare/upload", formData)
                     .then((res) => {
-                        ElMessage(res.data)
+                        console.log(res)
                 }).catch((err) => {
-                    ElMessage(err.message)
+                    console.log(err)
                 })
             }
         }

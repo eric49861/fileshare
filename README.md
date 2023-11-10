@@ -7,10 +7,10 @@
 
 前端界面和代码写的很糙:(
 ## 项目功能
-[x] 文件上传
-[x] 文件下载
-[x] 发送邮件
-[x] 接口限流
+- [x] 文件上传
+- [x] 文件下载
+- [x] 发送邮件
+- [x] 接口限流
 
 ## 项目使用的技术栈
 - Spring
@@ -20,18 +20,35 @@
 - MySQL(因为文件不大，我直接将文件按照字节数组存到数据库里)
 - Thymeleaf(事实上也没咋用)
 - axios
-- vue
+- vue3
 ## TODO
 
-[ ] 项目中的异常处理不是很优雅，虽然丑，但也完成了基本的功能，后面学习后会优化项目中异常处理的代码结构
-[ ] 给用户添加友好提示
+- [ ] 项目中的异常处理不是很优雅，虽然丑，但也完成了基本的功能，后面学习后会优化项目中异常处理的代码结构
+- [ ] 给前端界面添加友好提示(看心情吧)
 
 ## 项目中遇到的问题
 
-虽然项目很小，但也算比较完整，能够提供基本的功能，项目中也遇到了很多问题
+虽然项目很小，但也算比较完整，能够提供基本的功能，项目中也遇到了一些问题
 
 1. tomcat和Spring版本问题
-
-2. SpringMVC6文件上传的问题
     
-3. SpringMVC文件参数接收的问题(使用axios的post请求直接传参会有问题)
+    这个问题主要是因为Spring6和Tomcat不同版本需要的servlet-api不一样
+    ![img.png](imgs/img.png)
+2. SpringMVC6文件上传的问题
+    ![img.png](imgs/2.png)
+    对于spring6中怎么写，看官网：https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-servlet/multipart.html
+
+## 运行项目
+### 环境要求
+- JDK17
+- Tomcat10.x
+- Spring6.x
+- MySQL8.0
+
+1. 拉取代码
+    > git clone git@github.com:eric49861/fileshare.git
+2. 安装maven中的pom依赖
+3. 修改配置文件
+    - 数据库配置
+    - 邮件服务器配置(我加到了环境变量里)
+4. 运行项目
